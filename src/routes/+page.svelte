@@ -1,5 +1,10 @@
 <script lang="ts">
   import * as Tone from "tone";
+  import { createPedals } from "$lib/stores/pedal.svelte";
+  import { PEDAL_TYPES } from "$lib/constants/pedal";
+  import type { PedalType } from "$lib/types/pedal";
+
+  const { pedals, addPedal, deletePedal } = createPedals();
 
   async function onClick() {
     const player = new Tone.Player("sample.wav").toDestination();
@@ -11,7 +16,17 @@
   }
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+{#each pedals as { id, parameters }}
+  <div>
+    {id}
+    {#each Object.entries(parameters) as [name, value]}
+      {name}: <input type="text" bind:value />
+    {/each}
+    <button on:click={() => deletePedal(id)}>delete</button>
+  </div>
+{/each}
 
+{#each Object.entries(PEDAL_TYPES) as [pedalType, label]}
+  <button on:click={() => addPedal(pedalType as PedalType)}>{label}</button>
+{/each}
 <button on:click={onClick}>Play</button>
