@@ -1,6 +1,6 @@
 <script lang="ts">
   import * as Tone from "tone";
-  import Button from "$lib/components/ui/Button/Button.svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
   import { createPedals } from "$lib/stores/pedal.svelte";
   import { PEDAL_TYPES } from "$lib/constants/pedal";
   import type { PedalType } from "$lib/types/pedal";
